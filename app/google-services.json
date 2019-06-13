@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "698052792112",
+    "firebase_url": "https://fir-testapp-64d44.firebaseio.com",
+    "project_id": "fir-testapp-64d44",
+    "storage_bucket": "fir-testapp-64d44.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:698052792112:android:f46c7724edc8afb0",
+        "android_client_info": {
+          "package_name": "com.example.erpp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "698052792112-oltmvbae2cga6r73qicbkqor8irr3hr6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.erpp",
+            "certificate_hash": "26ba0c4d604e091b18241705ec571a305bc570d3"
+          }
+        },
+        {
+          "client_id": "698052792112-48basuodmafr11i969jc7332re3pju5b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoB2-r7EsdorjLC5bHakYjSFseOjx-yIU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "698052792112-48basuodmafr11i969jc7332re3pju5b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
