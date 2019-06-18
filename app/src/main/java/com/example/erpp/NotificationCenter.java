@@ -13,36 +13,35 @@ import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.NotificationManagerCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 import android.content.Intent;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-public class NotificationCenter extends Service {
+public class NotificationCenter extends Service{
     String currentNotification = "";
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        //Toast.makeText(this,//Intent().getSerializableExtra("MyClass");,Toast.LENGTH_LONG).show();
-        checkNotification();
-    }
-
-    private void checkNotification() {
+    public void checkNotification() {
         FirebaseDatabase.getInstance().getReference().child("NoticeBoard").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {if( dataSnapshot.getValue(String.class) != null ){
-                   if( currentNotification != dataSnapshot.getValue(String.class) ){
-                       currentNotification = dataSnapshot.getValue(String.class);
-                       notifY(currentNotification);
-                   }
-               }
+                if( currentNotification != dataSnapshot.getValue(String.class) ){
+                    currentNotification = dataSnapshot.getValue(String.class);
+                    notifY(currentNotification);
+                }
+            }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+    }
+
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
     }
     private void notifY(String notice) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -69,12 +68,8 @@ public class NotificationCenter extends Service {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-    }
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        return null;
+    public void onCreate() {
+        checkNotification();
+        super.onCreate();
     }
 }

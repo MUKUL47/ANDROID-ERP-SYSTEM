@@ -58,8 +58,8 @@ public class SeatingArrangements extends AppCompatActivity implements AdapterVie
         FirebaseDatabase.getInstance().getReference().child(ID).child("seatingArrangement").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()){
-                    arrangements.add(ds.getValue(String.class));
+                for(DataSnapshot s : dataSnapshot.getChildren()){
+                    arrangements.add(s.getValue(String.class));
                 }
                 arrangement.setAdapter(new ArrayAdapter<>(SeatingArrangements.this,R.layout.support_simple_spinner_dropdown_item,arrangements));
             }

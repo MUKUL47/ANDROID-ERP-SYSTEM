@@ -23,18 +23,27 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.work.BackoffPolicy;
+import androidx.work.Constraints;
+import androidx.work.NetworkType;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
+import androidx.work.WorkManager;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
     EditText ID,PASS;
-    SQL sql;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        backgroundService();
         NotificationManagerCompat.from(this).cancel(1);
         setRequestedOrientation (ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         super.onCreate(savedInstanceState);
@@ -44,6 +53,12 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         (findViewById(R.id.login)).setOnClickListener(this);
         if(!isInternetAvailable()) { Toast.makeText(this,"Not connected to internet",Toast.LENGTH_LONG).show();  }
 
+    }
+    public void backgroundService(){
+        startService(new Intent(getApplicationContext(),NotificationCenter.class));
+        WorkManager.getInstance().enqueue(new PeriodicWorkRequest.Builder(
+                WorkManage.class,15,TimeUnit.MINUTES
+        ).build());
     }
     @Override
     public void onClick(View v)
@@ -79,10 +94,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         }
     }
 
-//    @Override
-//    public ComponentName startService(Intent service) {
-//        return super.startService(service);
-//    }
+    @Override
+    public ComponentName startService(Intent service) {
+        return super.startService(service);
+    }
 
     public boolean isInternetAvailable(){
         //.putExtra("notices",sql.getClass()));
@@ -93,16 +108,6 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
             return true;
         }
         return false;
-    }
-
-//    @Override
-//    public ComponentName startService(Intent service) {
-//        return super.startService(service);
-//    }
-
-    public void stopService() {
-        Intent serviceIntent = new Intent(this, NotificationCenter.class);
-        stopService(serviceIntent);
     }
 
 }
