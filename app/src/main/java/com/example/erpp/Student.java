@@ -40,6 +40,7 @@ public class Student extends AppCompatActivity implements View.OnClickListener {
     String userId = "", marksheetExtension = ".pdf", finalName ;
     FirebaseStorage FBS;
     TextView noticeText;
+    boolean once = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,7 +81,7 @@ public class Student extends AppCompatActivity implements View.OnClickListener {
         FirebaseDatabase.
                 getInstance().
                 getReference().
-                child(userId.substring(0,4)).addValueEventListener(new ValueEventListener() {
+                child(userId.substring(0,4)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String S = dataSnapshot.child("Notice").getValue(String.class);
@@ -142,6 +143,9 @@ public class Student extends AppCompatActivity implements View.OnClickListener {
                     break;
                 case R.id.seatingArrangement:
                     startActivity(new Intent(this,SeatingArrangements.class).putExtra("id",userId.substring(0,4)));
+                    break;
+                case R.id.subscription:
+                    startActivity(new Intent(this,EmailNotification.class).putExtra("id",userId));
                     break;
             }
         }else{

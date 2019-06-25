@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Login"
     android:background="@drawable/background">
+
     <EditText
         android:id="@+id/id"
         android:layout_width="267dp"
@@ -14,6 +15,7 @@
         android:ems="10"
         android:hint="ID"
         android:inputType="textPersonName"
+        android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -57,5 +59,22 @@
         app:layout_constraintStart_toStartOf="parent"
         android:textColor="@color/colorText"
         app:layout_constraintTop_toBottomOf="@+id/login" />
+
+    <Button
+        android:id="@+id/admins"
+        android:onClick="onClick"
+        android:layout_width="156dp"
+        android:layout_height="31dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginLeft="136dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="137dp"
+        android:layout_marginRight="137dp"
+        android:background="@color/loginColor"
+        android:text="CONTACT ADMIN"
+        android:textColor="@color/colorText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/copyright" />
 
 </android.support.constraint.ConstraintLayout>

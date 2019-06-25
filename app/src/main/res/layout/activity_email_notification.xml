@@ -4,6 +4,61 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/cardview_dark_background"
     tools:context=".EmailNotification">
+
+    <TextView
+        android:id="@+id/about"
+        android:layout_width="284dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="64dp"
+        android:text="EDIT OR ADD EMAIL TO RECIEVE NOTIFICATION YOU CAN TURN IT OFF/ ON ANY TIME"
+        android:textColor="@color/colorText"
+        android:textColorHint="#00F3F3F3"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="272dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:ems="10"
+        android:hint="Your email"
+        android:inputType="textPersonName"
+        android:textColor="@color/cardview_light_background"
+        android:textColorHint="@color/cardview_light_background"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/about" />
+
+    <Button
+        android:id="@+id/disable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="57dp"
+        android:layout_marginRight="57dp"
+        android:text="DISABLE"
+        android:onClick="onClick"
+        app:layout_constraintBaseline_toBaselineOf="@+id/enable"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
+        android:id="@+id/enable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
+        android:layout_marginEnd="39dp"
+        android:layout_marginRight="39dp"
+        android:onClick="onClick"
+        android:text="@string/common_google_play_services_enable_button"
+        app:layout_constraintEnd_toStartOf="@+id/disable"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
 
 </android.support.constraint.ConstraintLayout>

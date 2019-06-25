@@ -7,4 +7,5 @@
     <color name="colorText">#FFFEFE</color>
     <color name="colorTextP">#70E0EB</color>
     <color name="noticeColor">#0E0202</color>
+    <color name="bgcolor">#3E3DCC</color>
 </resources>

@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">COE</string>
-    <string name="app_name_seating_arrangements">Seating Arrangements</string>
+    <string name="app_name_seating_arrangements">SEATING ARRANGEMENTS</string>
     <string name="title_activity_main2"></string>
     <string name="title_activity_main3"></string>
+    <string name="admin">ADMIN</string>
+    <string name="email_notification">EMAIL NOTIFICATION</string>
 </resources>
