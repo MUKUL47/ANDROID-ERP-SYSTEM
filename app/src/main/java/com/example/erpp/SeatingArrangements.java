@@ -8,7 +8,6 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.AdapterView;
@@ -22,16 +21,10 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
@@ -43,7 +36,7 @@ public class SeatingArrangements extends AppCompatActivity implements AdapterVie
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_seating_arrangements);
+        setContentView(R.layout.seatingarrangement);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         getWindow().setLayout((int)(displayMetrics.widthPixels * .8),(int)(displayMetrics.heightPixels * 0.5));
@@ -58,8 +51,13 @@ public class SeatingArrangements extends AppCompatActivity implements AdapterVie
         FirebaseDatabase.getInstance().getReference().child(ID).child("seatingArrangement").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 for(DataSnapshot s : dataSnapshot.getChildren()){
                     arrangements.add(s.getValue(String.class));
+                }
+                findViewById(R.id.progressBarSeatinArrangement).setVisibility(View.INVISIBLE);
+                if( arrangements.size() == 0 ){
+                    Toast.makeText(SeatingArrangements.this,"Not seating arrangement[s] found",Toast.LENGTH_LONG).show();
                 }
                 arrangement.setAdapter(new ArrayAdapter<>(SeatingArrangements.this,R.layout.support_simple_spinner_dropdown_item,arrangements));
             }
@@ -80,6 +78,8 @@ public class SeatingArrangements extends AppCompatActivity implements AdapterVie
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        final int idd = R.id.progressBarSeatinArrangement;
+        findViewById(R.id.progressBarSeatinArrangement).setVisibility(View.VISIBLE);
         final String arrangementFile = arrangements.get(position);
         StorageReference noticeFile = FBS.getInstance().getReference().child(ID).child("seatingArrangement").child(arrangementFile+".pdf");
         noticeFile.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
@@ -91,6 +91,7 @@ public class SeatingArrangements extends AppCompatActivity implements AdapterVie
                 R.setDestinationInExternalFilesDir(getApplicationContext(),DIRECTORY_DOWNLOADS,arrangementFile);
                 Toast.makeText(getApplicationContext(),"DOWNLOADING",Toast.LENGTH_LONG).show();
                 dm.enqueue(R);
+                findViewById(idd).setVisibility(View.INVISIBLE);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override

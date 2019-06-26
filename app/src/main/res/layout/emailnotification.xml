@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/cardview_dark_background"
+    android:background="@color/common_google_signin_btn_text_dark_default"
     tools:context=".EmailNotification">
 
     <TextView
@@ -16,7 +16,7 @@
         android:layout_marginRight="16dp"
         android:layout_marginBottom="64dp"
         android:text="EDIT OR ADD EMAIL TO RECIEVE NOTIFICATION YOU CAN TURN IT OFF/ ON ANY TIME"
-        android:textColor="@color/colorText"
+        android:textColor="#0C1D33"
         android:textColorHint="#00F3F3F3"
         android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/email"
@@ -33,32 +33,43 @@
         android:ems="10"
         android:hint="Your email"
         android:inputType="textPersonName"
-        android:textColor="@color/cardview_light_background"
-        android:textColorHint="@color/cardview_light_background"
+        android:textColor="@color/colorPrimary"
+        android:textColorHint="#202161"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/about" />
-
-    <Button
-        android:id="@+id/disable"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="57dp"
-        android:layout_marginRight="57dp"
-        android:text="DISABLE"
-        android:onClick="onClick"
-        app:layout_constraintBaseline_toBaselineOf="@+id/enable"
-        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/enable"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
-        android:layout_marginEnd="39dp"
-        android:layout_marginRight="39dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="196dp"
+        android:layout_marginRight="196dp"
+        android:text="ENABLE"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="18sp"
         android:onClick="onClick"
-        android:text="@string/common_google_play_services_enable_button"
-        app:layout_constraintEnd_toStartOf="@+id/disable"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email" />
+
+    <Button
+        android:id="@+id/disable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="56dp"
+        android:layout_marginLeft="56dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginRight="46dp"
+        android:text="DISABLE"
+        android:onClick="onClick"
+        android:textColor="@color/colorAccent"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/enable"
         app:layout_constraintTop_toBottomOf="@+id/email" />
 
 </android.support.constraint.ConstraintLayout>

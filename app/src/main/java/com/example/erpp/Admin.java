@@ -9,11 +9,8 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -42,7 +39,7 @@ public class Admin extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         allowPermission();
-        setContentView(R.layout.activity_main3);
+        setContentView(R.layout.administrator);
         ((Button)findViewById(R.id.button3)).setOnClickListener(this);
         showData();
         ((AutoCompleteTextView)findViewById(R.id.autoCompleteTextView))

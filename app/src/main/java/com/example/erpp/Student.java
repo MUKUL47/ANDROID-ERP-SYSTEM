@@ -8,14 +8,9 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,14 +20,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 
 import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
@@ -40,21 +29,21 @@ public class Student extends AppCompatActivity implements View.OnClickListener {
     String userId = "", marksheetExtension = ".pdf", finalName ;
     FirebaseStorage FBS;
     TextView noticeText;
-    boolean once = true;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
+        setContentView(R.layout.student);
         if(!isInternetAvailable()) { Toast.makeText(this,"Not connected to internet",Toast.LENGTH_LONG).show(); }
         userId = getIntent().getStringExtra("id");
-        ((TextView)findViewById(R.id.textView)).setText(userId);
+        ((TextView)findViewById(R.id.progressBarS)).setText(userId);
         noticeText = ((TextView)findViewById(R.id.notice));
         finalName = ":"+userId;
         updateNotice();
     }
 
     private void downloadThisFile(String fileNameAndPath) {
+        final int id = R.id.progressBarStudent;
+        findViewById(R.id.progressBarStudent).setVisibility(View.VISIBLE);
         finalName = fileNameAndPath.substring(fileNameAndPath.indexOf(":")+1,fileNameAndPath.length());
         StorageReference sR, R;
         sR = FBS.getInstance().getReference();
@@ -68,13 +57,16 @@ public class Student extends AppCompatActivity implements View.OnClickListener {
                 R.setDestinationInExternalFilesDir(getApplicationContext(),DIRECTORY_DOWNLOADS,finalName);
                 Toast.makeText(getApplicationContext(),"DOWNLOADING",Toast.LENGTH_LONG).show();
                 dm.enqueue(R);
+                findViewById(id).setVisibility(View.INVISIBLE);
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception e) {
                 Toast.makeText(getApplicationContext(),finalName+" : FILE NOT FOUND (CONTACT ADMIN)",Toast.LENGTH_LONG).show();
+                findViewById(id).setVisibility(View.INVISIBLE);
             }
         });
+
     }
 
     private void updateNotice() {
@@ -85,6 +77,7 @@ public class Student extends AppCompatActivity implements View.OnClickListener {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String S = dataSnapshot.child("Notice").getValue(String.class);
+
                 if( S != null && S.length() > 0) {
                     noticeText.setText(S);
                 }else{
@@ -97,6 +90,7 @@ public class Student extends AppCompatActivity implements View.OnClickListener {
             }
         });
         noticeText.setMovementMethod(new ScrollingMovementMethod());
+        findViewById(R.id.progressBarStudent).setVisibility(View.INVISIBLE);
     }
 
     @Override

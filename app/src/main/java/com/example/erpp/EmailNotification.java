@@ -1,7 +1,6 @@
 package com.example.erpp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.support.annotation.NonNull;
@@ -9,7 +8,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -24,7 +22,7 @@ public class EmailNotification extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_email_notification);
+        setContentView(R.layout.emailnotification);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         getWindow().setLayout((int)(displayMetrics.widthPixels * .8),(int)(displayMetrics.heightPixels * .5));
@@ -82,6 +80,7 @@ public class EmailNotification extends AppCompatActivity {
     private void disableEmail() {
         FirebaseDatabase.getInstance().getReference("Subscriptions").
                 child("Emails").child(ID.substring(0,4)).child(ID).removeValue();
+        email.setHint("Not subscribed");
         Toast.makeText(this,"Subscription disabled",Toast.LENGTH_LONG).show();
     }
 
