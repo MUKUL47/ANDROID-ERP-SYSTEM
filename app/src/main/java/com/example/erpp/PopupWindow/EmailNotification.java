@@ -1,4 +1,4 @@
-package com.example.erpp;
+package com.example.erpp.PopupWindow;
 
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.erpp.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,7 +26,7 @@ public class EmailNotification extends AppCompatActivity {
         setContentView(R.layout.emailnotification);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        getWindow().setLayout((int)(displayMetrics.widthPixels * .8),(int)(displayMetrics.heightPixels * .5));
+        getWindow().setLayout((int)(displayMetrics.widthPixels * .9),(int)(displayMetrics.heightPixels * .5));
         ID = getIntent().getStringExtra("id");
         email = findViewById(R.id.email);
         checkIfAlreadySubscribed();
@@ -88,5 +89,9 @@ public class EmailNotification extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference("Subscriptions").
                 child("Emails").child(ID.substring(0,4)).child(ID).setValue(email.toLowerCase());
         Toast.makeText(this,"Email updated",Toast.LENGTH_LONG).show();
+    }
+
+    public void exitNoti(View view) {
+        onBackPressed();
     }
 }

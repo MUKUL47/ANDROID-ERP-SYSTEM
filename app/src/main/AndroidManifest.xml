@@ -22,17 +22,34 @@
         android:roundIcon="@mipmap/icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".admins"
+        <activity android:name=".PopupWindow.LoginAs"
+            android:label="@string/title_activity_main2"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.SeatingArrangementTheme">
+        </activity>
+
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@drawable/bglogin" />
+
+        <activity android:name=".PopupWindow.RemoveSavedIdPass" />
+        <activity
+            android:name=".PopupWindow.NoticeFiles"
+            android:label="@string/notices"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.SeatingArrangementTheme" />
+        <activity
+            android:name=".PopupWindow.Contact"
             android:label="@string/admin"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.SeatingArrangementTheme"></activity>
+            android:theme="@style/AppTheme.SeatingArrangementTheme" />
         <activity
-            android:name=".EmailNotification"
+            android:name=".PopupWindow.EmailNotification"
             android:label="@string/email_notification"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.SeatingArrangementTheme" />
         <activity
-            android:name=".SeatingArrangements"
+            android:name=".PopupWindow.SeatingArrangements"
             android:label="@string/app_name_seating_arrangements"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.SeatingArrangementTheme" />
@@ -53,7 +70,7 @@
             </intent-filter>
         </activity>
 
-        <service android:name=".NotificationCenter" />
+        <service android:name=".UnnessaryModules.NotificationCenter" />
     </application>
 
 </manifest>

@@ -1,4 +1,4 @@
-package com.example.erpp;
+package com.example.erpp.UnnessaryModules;
 
 import android.annotation.TargetApi;
 import android.app.Notification;
@@ -16,6 +16,9 @@ import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 import android.content.Intent;
+
+import com.example.erpp.Login;
+import com.example.erpp.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;

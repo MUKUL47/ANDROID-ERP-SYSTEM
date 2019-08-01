@@ -4,5 +4,7 @@
     <string name="title_activity_main2"></string>
     <string name="title_activity_main3"></string>
     <string name="admin">ADMIN</string>
+    <string name="notices">NOTICES</string>
     <string name="email_notification">EMAIL NOTIFICATION</string>
+
 </resources>

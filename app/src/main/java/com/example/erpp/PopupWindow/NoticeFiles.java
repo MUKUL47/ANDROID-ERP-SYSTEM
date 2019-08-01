@@ -1,4 +1,4 @@
-package com.example.erpp;
+package com.example.erpp.PopupWindow;
 
 import android.app.DownloadManager;
 import android.content.Context;
@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.erpp.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
@@ -28,45 +29,44 @@ import java.util.ArrayList;
 
 import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
-public class SeatingArrangements extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class NoticeFiles extends AppCompatActivity implements AdapterView.OnItemClickListener {
     FirebaseStorage FBS;
-    String ID;
-    ArrayList<String> arrangements = new ArrayList<>();
-    ListView arrangement;
+    ArrayList<String> noticeFiles = new ArrayList<>();
+    ListView noticeF;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.seatingarrangement);
+        setContentView(R.layout.noticefiles);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         getWindow().setLayout((int)(displayMetrics.widthPixels * .8),(int)(displayMetrics.heightPixels * 0.5));
-        ID = getIntent().getStringExtra("id");
-        arrangement = findViewById(R.id.arrangements);
-        arrangement.setOnItemClickListener(this);
-        if( isInternetAvailable() )updateSeatingArrangements();
+        noticeF = findViewById(R.id.noticeF);
+        noticeF.setOnItemClickListener(this);
+        if( isInternetAvailable() )updateNoticeFiles();
         else Toast.makeText(this,"Not connected to internet",Toast.LENGTH_LONG).show();
+
     }
 
-    private void updateSeatingArrangements() {
-        FirebaseDatabase.getInstance().getReference().child(ID).child("seatingArrangement").addValueEventListener(new ValueEventListener() {
+    private void updateNoticeFiles() {
+        FirebaseDatabase.getInstance().getReference().child("NoticeFiles").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 for(DataSnapshot s : dataSnapshot.getChildren()){
-                    arrangements.add(s.getValue(String.class));
+                    noticeFiles.add(s.getValue(String.class));
                 }
-                findViewById(R.id.progressBarSeatinArrangement).setVisibility(View.INVISIBLE);
-                if( arrangements.size() == 0 ){
-                    Toast.makeText(SeatingArrangements.this,"Not seating arrangement[s] found",Toast.LENGTH_LONG).show();
+                findViewById(R.id.noticeBar).setVisibility(View.INVISIBLE);
+                if( noticeFiles.size() == 0 ){
+                    Toast.makeText(NoticeFiles.this,"No notice[s] found",Toast.LENGTH_LONG).show();
                 }
-                arrangement.setAdapter(new ArrayAdapter<>(SeatingArrangements.this,R.layout.support_simple_spinner_dropdown_item,arrangements));
+                noticeF.setAdapter(new ArrayAdapter<>(NoticeFiles.this,R.layout.support_simple_spinner_dropdown_item,noticeFiles));
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
-
     }
+
     public boolean isInternetAvailable(){
         ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         if(connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
@@ -78,10 +78,10 @@ public class SeatingArrangements extends AppCompatActivity implements AdapterVie
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        final int idd = R.id.progressBarSeatinArrangement;
-        findViewById(R.id.progressBarSeatinArrangement).setVisibility(View.VISIBLE);
-        final String arrangementFile = arrangements.get(position);
-        StorageReference noticeFile = FBS.getInstance().getReference().child(ID).child("seatingArrangement").child(arrangementFile+".pdf");
+        final int idd = R.id.noticeBar;
+        findViewById(idd).setVisibility(View.VISIBLE);
+        final String arrangementFile = noticeFiles.get(position);
+        StorageReference noticeFile = FBS.getInstance().getReference().child("NoticeFiles/"+arrangementFile);
         noticeFile.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -98,5 +98,8 @@ public class SeatingArrangements extends AppCompatActivity implements AdapterVie
             public void onFailure(@NonNull Exception e) {
             }
         });
+    }
+    public void exitNoticeFiles(View view) {
+        onBackPressed();
     }
 }

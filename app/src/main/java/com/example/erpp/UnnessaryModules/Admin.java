@@ -1,4 +1,4 @@
-package com.example.erpp;
+package com.example.erpp.UnnessaryModules;
 
 import android.Manifest;
 import android.app.Activity;
@@ -17,6 +17,8 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.erpp.R;
+import com.example.erpp.Student;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -73,6 +75,7 @@ public class Admin extends AppCompatActivity implements View.OnClickListener {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
+
 
     @Override
     public void onClick(View v) {
@@ -147,6 +150,6 @@ public class Admin extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        startActivity(new Intent(this,Student.class));
+        startActivity(new Intent(this, Student.class));
     }
 }

@@ -1,4 +1,4 @@
-package com.example.erpp;
+package com.example.erpp.PopupWindow;
 
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.erpp.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
@@ -36,10 +37,10 @@ public class Contact extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 findViewById(R.id.progressBarAdmin).setVisibility(View.INVISIBLE);
                 if(dataSnapshot.getValue(String.class) != null){
-                    ((TextView)findViewById(R.id.adminBoard)).setHint(dataSnapshot.getValue(String.class));
+                    ((TextView)findViewById(R.id.adminBoard)).setText(dataSnapshot.getValue(String.class));
 
                 }else{
-                    ((TextView)findViewById(R.id.adminBoard)).setHint("Admin[s] not found");
+                    ((TextView)findViewById(R.id.adminBoard)).setText("Admin[s] not found");
 
 
                 }
@@ -49,5 +50,8 @@ public class Contact extends AppCompatActivity {
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
         });
+    }
+    public void exitContact(View view) {
+        onBackPressed();
     }
 }
