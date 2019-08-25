@@ -71,18 +71,8 @@ public class LoginAs extends AppCompatActivity implements AdapterView.OnItemClic
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String id = dataSnapshot.child(ID.toUpperCase()).getValue(String.class);
                 if( id == null){
-                    progressBarL.setVisibility(View.INVISIBLE);
-                   // Toast.makeText(Login.this,"ID NOT REGISTERED (CONTACT ADMIN)",Toast.LENGTH_LONG).show();
-                    if(dataSnapshot.child(ID.toUpperCase()).
-                            getValue(String.class)
-                            .equalsIgnoreCase(PASS)){
-                        startActivity(new Intent(LoginAs.this, Login.class)
-                                .putExtra("autoId",ID.toUpperCase())
-                                .putExtra("autoPass",PASS)
-                        );
-                    }else{
-                        //Toast.makeText(Login.this,"INCORRECT ERP PASSWORD (CONTACT ADMIN)",Toast.LENGTH_LONG).show();
-                    }
+                    Toast.makeText(getApplicationContext(),
+                            "THIS USER DETAILS HAS BEEN MODIFIED BY ADMIN RELOGIN FROM MAIN WINDOW/ CONTACT ADMIN",Toast.LENGTH_LONG).show();
                 }
                 else{
                     progressBarL.setVisibility(View.INVISIBLE);
@@ -94,7 +84,8 @@ public class LoginAs extends AppCompatActivity implements AdapterView.OnItemClic
                                 .putExtra("pass",PASS)
                         );
                     }else{
-                        //Toast.makeText(Login.this,"INCORRECT ERP PASSWORD (CONTACT ADMIN)",Toast.LENGTH_LONG).show();
+                        Toast.makeText(getApplicationContext(),
+                                "THIS USER DETAILS HAS BEEN MODIFIED BY ADMIN RELOGIN FROM MAIN WINDOW/ CONTACT ADMIN",Toast.LENGTH_LONG).show();
                     }
                 }
             }

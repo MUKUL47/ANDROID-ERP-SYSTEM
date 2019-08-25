@@ -64,7 +64,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Ad
         (findViewById(R.id.login)).setOnClickListener(this);
         updateAutoCompleteId(staticDB);
         if(!isInternetAvailable()) { Toast.makeText(this,"Not connected to internet",Toast.LENGTH_LONG).show();  }
-        isAutoLoggedIn();
+        //isAutoLoggedIn();
     }
 
     private void getIntentData() {
