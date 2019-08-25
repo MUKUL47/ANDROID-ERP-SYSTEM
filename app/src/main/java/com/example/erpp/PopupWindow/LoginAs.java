@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.erpp.Login;
@@ -28,11 +29,14 @@ public class LoginAs extends AppCompatActivity implements AdapterView.OnItemClic
     ArrayList<String> ids = new ArrayList<>();
     ArrayList<String> pass = new ArrayList<>();
     ListView loggedInIds;
+    ProgressBar progressBarL;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.loginas);
         loggedInIds = (ListView)findViewById(R.id.loggedInIds);
+        progressBarL = findViewById(R.id.progressBar2);
+        progressBarL.setVisibility(View.INVISIBLE);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         loggedInIds.setOnItemClickListener(this);
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
@@ -60,15 +64,28 @@ public class LoginAs extends AppCompatActivity implements AdapterView.OnItemClic
         login(ids.get(position),pass.get(position));
     }
     private void login(String id, String pass){
+        progressBarL.setVisibility(View.VISIBLE);
         final String ID = id, PASS = pass;
         FirebaseDatabase.getInstance().getReference().child("StudentLogs/"+ID.substring(0,4)).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 String id = dataSnapshot.child(ID.toUpperCase()).getValue(String.class);
                 if( id == null){
+                    progressBarL.setVisibility(View.INVISIBLE);
                    // Toast.makeText(Login.this,"ID NOT REGISTERED (CONTACT ADMIN)",Toast.LENGTH_LONG).show();
+                    if(dataSnapshot.child(ID.toUpperCase()).
+                            getValue(String.class)
+                            .equalsIgnoreCase(PASS)){
+                        startActivity(new Intent(LoginAs.this, Login.class)
+                                .putExtra("autoId",ID.toUpperCase())
+                                .putExtra("autoPass",PASS)
+                        );
+                    }else{
+                        //Toast.makeText(Login.this,"INCORRECT ERP PASSWORD (CONTACT ADMIN)",Toast.LENGTH_LONG).show();
+                    }
                 }
                 else{
+                    progressBarL.setVisibility(View.INVISIBLE);
                     if(dataSnapshot.child(ID.toUpperCase()).
                             getValue(String.class)
                             .equalsIgnoreCase(PASS)){

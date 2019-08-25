@@ -40,7 +40,7 @@ public class Student extends AppCompatActivity implements View.OnClickListener {
     FirebaseStorage FBS;
     TextView noticeText;
     StaticDB staticDB;
-    boolean rememberMe;
+    boolean rememberMe, againLogin = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -136,8 +136,11 @@ public class Student extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
-        startActivity(new Intent(this,Login.class));
+        if(!againLogin){
+            againLogin = true;
+            Toast.makeText(this,"Press again to logout",Toast.LENGTH_LONG).show();
+        }
+        else{super.onBackPressed();}
     }
 
     @Override
@@ -166,8 +169,7 @@ public class Student extends AppCompatActivity implements View.OnClickListener {
                     removeFromStaticDb();
                     break;
                 case R.id.logout:
-                    startActivity(new Intent(this, Login.class)
-                                .putExtra("exit",true));
+                    onBackPressed();
                     break;
             }
         }else{

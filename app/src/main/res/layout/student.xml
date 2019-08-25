@@ -135,7 +135,7 @@
         android:layout_marginBottom="30dp"
         android:background="@drawable/buttonshape"
         android:onClick="onClick"
-        android:text="ENABLE NOTIFICATION"
+        android:text="@string/email_notification"
 
         android:textSize="18sp"
         android:textStyle="bold"

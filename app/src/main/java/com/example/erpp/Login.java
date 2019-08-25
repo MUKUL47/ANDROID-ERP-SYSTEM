@@ -17,8 +17,10 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.Switch;
@@ -39,10 +41,11 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Ad
     AutoCompleteTextView ID;
     ProgressBar progressBar;
     StaticDB staticDB;
-    boolean exit = true;
+    boolean exit = false, againLogin = false;
     String autoId = "", autoPass = "";
     String autoLogin = "";
     ArrayList<String> pass, id;
+    ImageView exitApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,13 +56,15 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Ad
         setContentView(R.layout.login);
         ID   = findViewById(R.id.id);
         PASS = findViewById(R.id.password);
+        exitApp = findViewById(R.id.exit);
+        exitApp.setOnClickListener(this);
         ID.setOnItemClickListener(this);
         progressBar =  findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
         (findViewById(R.id.login)).setOnClickListener(this);
         updateAutoCompleteId(staticDB);
         if(!isInternetAvailable()) { Toast.makeText(this,"Not connected to internet",Toast.LENGTH_LONG).show();  }
-        //isAutoLoggedIn();
+        isAutoLoggedIn();
     }
 
     private void getIntentData() {
@@ -83,16 +88,18 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Ad
 
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        if(exit){
-                Toast.makeText(this,"Press back again to exit",Toast.LENGTH_LONG).show();
-                startActivity(new Intent(this,this.getClass())
-                        .putExtra("exit",false));
+    public void exit() {
+        if(!againLogin){
+            againLogin = true;
+            Toast.makeText(this,"Press again to exit",Toast.LENGTH_LONG).show();
         }else{
             exit(findViewById(R.id.exit));
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        exit();
     }
 
     private void updateAutoCompleteId(StaticDB staticDB) {
@@ -111,7 +118,10 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Ad
     @Override
     public void onClick(View v)
     {
-        if(v.getId() == R.id.loggedInDetails){
+        if(v.getId() == R.id.exit){
+            exit();
+        }
+        else if(v.getId() == R.id.loggedInDetails){
             startActivity(new Intent(this, LoginAs.class));
         }
         else if( v.getId() == R.id.showPass ){
@@ -186,7 +196,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener, Ad
     }
 
     public void exit(View view) {
-        android.os.Process.killProcess(android.os.Process.myPid());
+        finish();
+        return;
     }
 
 
